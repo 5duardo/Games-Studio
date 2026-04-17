@@ -17,7 +17,12 @@
       "repo": "Games-Studio"
     },
     "win": {
-      "target": "portable"
+      "target": ["nsis", "portable"]
+    },
+    "nsis": {
+      "artifactName": "Games-Studio-Setup.exe",
+      "oneClick": true,
+      "perMachine": false
     },
     "portable": {
       "artifactName": "Games-Studio-Portable.exe"
