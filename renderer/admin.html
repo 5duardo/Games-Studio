@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Studio — Administración</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .admin-layout {
+      display: flex;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: rgba(255,255,255,0.02);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,13,26,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .sidebar-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      margin-bottom: 2px;
+    }
+
+    .list-item:hover { background: var(--bg-card); border-color: var(--border); }
+    .list-item.active { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.3); }
+
+    .item-color-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .item-icon { font-size: 18px; line-height: 1; }
+    .item-info { flex: 1; min-width: 0; }
+    .item-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item-desc { font-size: 11px; color: var(--text-muted); }
+    .item-delete {
+      opacity: 0; background: none; border: none; color: var(--danger); cursor: pointer;
+      font-size: 14px; padding: 2px 4px; border-radius: 4px; transition: var(--transition);
+    }
+    .list-item:hover .item-delete { opacity: 1; }
+    .item-delete:hover { background: var(--danger-bg); }
+
+    .sidebar-footer {
+      padding: 12px 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* ─── Main Content ─── */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .main-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .main-header-left { display: flex; align-items: center; gap: 12px; }
+    .main-title-wrap h2 { font-size: 20px; font-weight: 700; }
+    .main-edit-icon { font-size: 24px; }
+
+    .main-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
+    }
+
+    /* ─── Questions List ─── */
+    .questions-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .questions-title { font-size: 14px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .question-card {
+      display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      margin-bottom: 8px; transition: var(--transition);
+    }
+    .question-card:hover { background: var(--bg-card-hover); border-color: var(--border-hover); }
+
+    .question-number {
+      width: 28px; height: 28px; border-radius: 8px; background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.25); display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: var(--accent-light); flex-shrink: 0;
+    }
+    .question-body { flex: 1; min-width: 0; }
+    .question-text { font-size: 14px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+    .question-options { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+
+    .option-chip {
+      font-size: 11px; padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .option-chip.correct { background: var(--success-bg); border-color: rgba(34,211,163,0.3); color: var(--success); font-weight: 600; }
+
+    .question-meta { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 11px; color: var(--text-muted); }
+    .question-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
+    /* ─── Settings Panel ─── */
+    .color-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .color-swatch {
+      width: 28px; height: 28px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: var(--transition);
+    }
+    
+    .icon-options-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+    .icon-option {
+      width: 36px; height: 36px; border-radius: var(--radius-md); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition);
+      background: var(--bg-card); color: var(--text-secondary);
+    }
+    .icon-option:hover, .icon-option.selected {
+      border-color: var(--accent); background: var(--accent-glow); color: var(--accent); transform: scale(1.1);
+    }
+    .color-swatch:hover, .color-swatch.selected { border-color: white; transform: scale(1.2); }
+
+    .nav-back {
+      display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 13px; font-weight: 500;
+      cursor: pointer; padding: 6px 10px; border-radius: var(--radius-sm); transition: var(--transition); border: none; background: none; justify-content: center;
+    }
+    .nav-back:hover { color: var(--text-primary); background: var(--bg-card); }
+
+    .no-item-selected { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 16px; color: var(--text-muted); }
+    .no-item-icon { font-size: 64px; opacity: 0.3; }
+
+    .tabs { display: flex; gap: 4px; padding: 4px; background: rgba(255,255,255,0.04); border-radius: var(--radius-md); border: 1px solid var(--border); }
+    .tab {
+      padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-secondary); transition: var(--transition); border: none; background: none;
+    }
+    .tab.active { background: var(--accent); color: white; box-shadow: 0 2px 8px var(--accent-glow); }
+    .tab:not(.active):hover { color: var(--text-primary); background: var(--bg-card); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body>
+  <!-- bg-orbs removed -->
+
+  <div class="titlebar">
+    <span class="titlebar-title">Game Studio — Panel de Control</span>
+    <div class="titlebar-controls">
+
+      <button class="titlebar-btn minimize" id="btn-minimize"></button>
+      <button class="titlebar-btn maximize" id="btn-maximize"></button>
+      <button class="titlebar-btn close" id="btn-close"></button>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="admin-layout">
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Teams Section -->
+        <div class="sidebar-section" style="border-bottom: 1px solid var(--border); max-height: 45%;">
+          <div class="sidebar-header">
+            <div class="sidebar-title">Equipos (Jugadores)</div>
+            <button class="btn btn-ghost btn-sm btn-icon" id="btn-add-team" title="Nuevo Equipo"><i data-lucide="plus"></i></button>
+          </div>
+          <div class="sidebar-list" id="teams-list"></div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="sidebar-section">
+          <div class="sidebar-header">
+            <div class="sidebar-title">Categorías (Preguntas)</div>
+            <button class="btn btn-ghost btn-sm btn-icon" id="btn-add-cat" title="Nueva Categoría"><i data-lucide="plus"></i></button>
+          </div>
+          <div class="sidebar-list" id="cats-list"></div>
+        </div>
+
+        <div class="sidebar-footer">
+          <button class="nav-back" id="btn-back">← Volver al Inicio</button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Header -->
+        <div class="main-header" id="main-header" style="display:none">
+          <div class="main-header-left">
+            <span class="main-edit-icon" id="header-icon"><i data-lucide="trophy"></i></span>
+            <div class="main-title-wrap">
+              <h2 id="header-name">Elemento</h2>
+              <div class="text-sm text-muted" id="header-desc">Descripción</div>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <div class="tabs" id="main-tabs">
+              <button class="tab hidden" data-tab="questions" id="tab-btn-questions">Preguntas</button>
+              <button class="tab active" data-tab="settings" id="tab-btn-settings">Ajustes</button>
+            </div>
+            <button class="btn btn-primary btn-sm hidden" id="btn-add-question">+ Agregar Pregunta</button>
+          </div>
+        </div>
+
+        <!-- No Item Selected -->
+        <div class="no-item-selected" id="no-item-placeholder">
+          <div class="no-item-icon"><i data-lucide="settings" style="width:64px;height:64px;"></i></div>
+          <div style="font-size:16px;font-weight:600;color:var(--text-secondary)">Selecciona o crea un elemento</div>
+          <div class="text-sm">Configura los equipos participantes o agrega categorías y preguntas.</div>
+        </div>
+
+        <!-- Body -->
+        <div class="main-body" id="main-body" style="display:none">
+
+          <!-- Questions Tab (Only for Categories) -->
+          <div class="tab-content" id="tab-questions">
+            <div class="questions-header">
+              <div class="questions-title">Preguntas de la Categoría</div>
+              <span class="badge badge-accent" id="q-count-badge">0</span>
+            </div>
+            <div id="questions-list"></div>
+            <div id="no-questions" class="empty-state hidden">
+              <div class="empty-state-icon"><i data-lucide="help-circle" style="width:48px;height:48px;"></i></div>
+              <div class="empty-state-title">Sin preguntas aún</div>
+              <div class="empty-state-desc">Agrega preguntas usando el botón de arriba</div>
+            </div>
+          </div>
+
+          <!-- Settings Tab (For both Team and Category) -->
+          <div class="tab-content active" id="tab-settings">
+            <div class="card p-6" style="max-width: 480px;">
+              <h3 style="font-size:16px;font-weight:700;margin-bottom:20px;" id="settings-title">Configuración</h3>
+              <div class="flex flex-col gap-4">
+                <div class="form-group">
+                  <label class="form-label" id="name-label">Nombre</label>
+                  <input type="text" class="form-input" id="item-name-input" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Ícono</label>
+                  <div class="icon-options-grid" id="icon-picker"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Color</label>
+                  <div class="color-options" id="color-picker"></div>
+                </div>
+                <button class="btn btn-primary" id="btn-save-item">Guardar Cambios</button>
+              </div>
+            </div>
+
+            <div class="card p-6" style="max-width: 480px; margin-top: 16px; border-color: rgba(244,63,94,0.2);">
+              <h3 style="font-size:16px;font-weight:700;margin-bottom:12px; color: var(--danger);">Zona de Peligro</h3>
+              <p class="text-sm text-muted" style="margin-bottom:12px">Esta acción no se puede deshacer.</p>
+              <button class="btn btn-danger" id="btn-delete-item" style="display:flex; align-items:center; gap:8px;"><i data-lucide="trash-2" style="width:18px;height:18px;"></i> Eliminar Definitivamente</button>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal: Agregar Equipo/Categoría -->
+  <div class="modal-overlay hidden" id="modal-creation">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="creation-title">Nuevo Elemento</div>
+        <button class="btn btn-ghost btn-icon" id="creation-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Nombre *</label>
+          <input type="text" class="form-input" id="creation-name" placeholder="...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ícono</label>
+          <div class="icon-options-grid" id="creation-icon-picker"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Color</label>
+          <div class="color-options" id="creation-color-picker"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="creation-cancel">Cancelar</button>
+        <button class="btn btn-primary" id="creation-save">Crear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Editar/Agregar Pregunta -->
+  <div class="modal-overlay hidden" id="modal-question">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-q-title">Pregunta</div>
+        <button class="btn btn-ghost btn-icon" id="modal-q-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Pregunta *</label>
+          <textarea class="form-textarea" id="q-text" placeholder="..." rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Opción A *</label>
+          <input type="text" class="form-input" id="q-opt-a" placeholder="Opción A">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Opción B *</label>
+          <input type="text" class="form-input" id="q-opt-b" placeholder="Opción B">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Opción C</label>
+          <input type="text" class="form-input" id="q-opt-c" placeholder="Opción C">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Opción D</label>
+          <input type="text" class="form-input" id="q-opt-d" placeholder="Opción D">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Respuesta Correcta *</label>
+          <select class="form-select" id="q-correct">
+            <option value="0">A</option><option value="1">B</option>
+            <option value="2">C</option><option value="3">D</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="modal-q-cancel">Cancelar</button>
+        <button class="btn btn-primary" id="modal-q-save">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="js/lucide.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons({ icons: window.lucide.icons });
+    }
+  </script>
+</body>
+</html>

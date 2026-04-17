@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Studio — Resultados</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .results-page {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .results-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-lg);
+      animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+    }
+
+    .winner-trophy {
+      font-size: 72px;
+      line-height: 1;
+      margin-bottom: 16px;
+      animation: trophyBounce 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+    }
+
+    @keyframes trophyBounce {
+      0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+      60% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .winner-subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .winner-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .winner-score {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent-light);
+      margin-bottom: 32px;
+    }
+
+    /* Final Leaderboard */
+    .final-lb {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .final-lb-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-lb-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 6px;
+      background: var(--team-color);
+    }
+
+    .final-lb-item[data-rank="1"] {
+      background: rgba(245,158,11,0.05);
+      border-color: rgba(245,158,11,0.4);
+      transform: scale(1.02);
+    }
+
+    .lb-rank {
+      font-size: 20px; font-weight: 800; width: 24px; text-align: center; color: var(--text-muted);
+    }
+    .final-lb-item[data-rank="1"] .lb-rank { color: #f59e0b; }
+    .final-lb-item[data-rank="2"] .lb-rank { color: #cbd5e1; }
+    .final-lb-item[data-rank="3"] .lb-rank { color: #d97706; }
+
+    .lb-icon { font-size: 24px; }
+    .lb-name { flex: 1; font-size: 16px; font-weight: 600; }
+    .lb-score { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 800; }
+
+    .results-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- bg-orbs removed -->
+
+  <div class="titlebar">
+    <span class="titlebar-title">Game Studio — Resultados Finales</span>
+    <div class="titlebar-controls">
+
+      <button class="titlebar-btn minimize" id="btn-minimize"></button>
+      <button class="titlebar-btn maximize" id="btn-maximize"></button>
+      <button class="titlebar-btn close" id="btn-close"></button>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="results-page">
+      <div class="results-card" id="results-card">
+        
+        <div class="winner-trophy"><i data-lucide="crown" style="width:72px;height:72px;"></i></div>
+        <div class="winner-subtitle">¡Campeón!</div>
+        <div class="winner-name" id="winner-name">Equipo Ganador</div>
+        <div class="winner-score" id="winner-score">0 Puntos</div>
+
+        <div class="final-lb" id="final-lb">
+          <!-- Standings injected here -->
+        </div>
+
+        <div class="results-actions">
+          <button class="btn btn-ghost" id="btn-home">← Volver al Inicio</button>
+          <button class="btn btn-primary" id="btn-replay">Jugar Nueva Partida</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/lucide.js"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    document.getElementById('btn-minimize').addEventListener('click', () => window.api.minimize());
+    document.getElementById('btn-maximize').addEventListener('click', () => window.api.maximize());
+    document.getElementById('btn-close').addEventListener('click', () => window.api.close());
+
+    document.getElementById('btn-home').addEventListener('click', () => window.api.navigate('index.html'));
+    document.getElementById('btn-replay').addEventListener('click', () => window.api.navigate('lobby.html'));
+
+    function escapeHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function loadResults() {
+      const raw = sessionStorage.getItem('gameResults');
+      if (!raw) { window.api.navigate('lobby.html'); return; }
+
+      const teams = JSON.parse(raw);
+      // Sort by score
+      teams.sort((a,b) => b.score - a.score);
+
+      const winner = teams[0];
+      
+      document.getElementById('winner-name').textContent = winner.name;
+      document.getElementById('winner-name').style.color = winner.color;
+      document.getElementById('winner-score').textContent = `${winner.score} Puntos`;
+
+      const list = document.getElementById('final-lb');
+      list.innerHTML = '';
+      teams.forEach((t, index) => {
+        const rank = index + 1;
+        const el = document.createElement('div');
+        el.className = 'final-lb-item';
+        el.dataset.rank = rank;
+        el.style.setProperty('--team-color', t.color);
+
+        el.innerHTML = `
+          <div class="lb-rank">${rank}</div>
+          <div class="lb-icon"><i data-lucide="${window.getLucideIcon(t.icon)}" style="width:24px;height:24px;"></i></div>
+          <div class="lb-name">${escapeHtml(t.name)}</div>
+          <div class="lb-score" style="color:${t.color}">${t.score}</div>
+        `;
+        list.appendChild(el);
+      });
+      if (window.lucide) window.lucide.createIcons({ icons: window.lucide.icons });
+    }
+
+    loadResults();
+  </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Studio</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ─── Splash Screen ─────────────────────────────────────────────────── */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #splash-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-logo {
+      animation: splashPulse 1.5s ease-in-out infinite;
+      margin-bottom: 32px;
+    }
+    .splash-logo img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+    }
+    .splash-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .splash-subtitle {
+      font-size: 13px;
+      color: #475569;
+      margin-bottom: 40px;
+      letter-spacing: 0.05em;
+    }
+    .splash-loader {
+      width: 200px;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .splash-loader-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #004AAD, #3378ff);
+      border-radius: 99px;
+      animation: splashLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    .splash-status {
+      font-size: 12px;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 20px;
+      transition: opacity 0.3s ease;
+    }
+    .splash-spinner {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-top-color: #3378ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes splashPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(51,120,255,0)); }
+      50% { transform: scale(1.04); filter: drop-shadow(0 0 20px rgba(51,120,255,0.4)); }
+    }
+    @keyframes splashLoad {
+      0% { width: 0%; }
+      30% { width: 40%; }
+      70% { width: 75%; }
+      100% { width: 100%; }
+    }
+    /* ─── End Splash ─────────────────────────────────────────────────────── */
+
+    .landing {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .landing-logo {
+      font-size: 56px;
+      margin-bottom: 12px;
+    }
+
+    .landing-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.25);
+      padding: 5px 16px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+
+    .landing-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 64px;
+      font-weight: 800;
+      line-height: 1.05;
+      text-align: center;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .landing-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 400px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+
+    .landing-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── Card base ── */
+    .landing-card {
+      border-radius: var(--radius-xl);
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: 
+        "icon title badge"
+        "icon desc badge";
+      align-items: center;
+      column-gap: 20px;
+      row-gap: 4px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── Card ACTIVA (Liga Quiz) ── */
+    .landing-card.quiz-card {
+      background: rgba(16, 185, 129, 0.06);
+      border: 1.5px solid rgba(16,185,129,0.35);
+      cursor: pointer;
+      box-shadow: 0 0 0 0 rgba(16,185,129,0);
+    }
+    .landing-card.quiz-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .landing-card.quiz-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16,185,129,0.65);
+      box-shadow: 0 0 24px rgba(16,185,129,0.18), 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .landing-card.quiz-card:hover .landing-card-arrow {
+      color: var(--success);
+      transform: translateX(6px);
+    }
+
+    /* ── Card PRÓXIMAMENTE ── */
+    .landing-card.disabled-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed rgba(255,255,255,0.1);
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+    .landing-card.disabled-card:hover {
+      transform: none;
+      box-shadow: none;
+      opacity: 0.45;
+    }
+    .landing-card.disabled-card .landing-card-icon,
+    .landing-card.disabled-card .landing-card-title,
+    .landing-card.disabled-card .landing-card-desc {
+      filter: grayscale(1);
+    }
+
+    /* ── Icon ── */
+    .landing-card-icon {
+      grid-area: icon;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .quiz-card .landing-card-icon {
+      background: rgba(16,185,129,0.12);
+      color: var(--success);
+    }
+    .disabled-card .landing-card-icon {
+      background: rgba(255,255,255,0.04);
+      color: var(--text-muted);
+    }
+
+    .landing-card-title {
+      grid-area: title;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .landing-card-desc {
+      grid-area: desc;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ── Badge activo ── */
+    .landing-card-arrow {
+      grid-area: badge;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--success);
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.25);
+      padding: 4px 12px;
+      border-radius: 99px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    /* ── Badge próximamente ── */
+    .badge-soon {
+      grid-area: badge;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 10px;
+      border-radius: 99px;
+      margin: 0;
+      align-self: center;
+      white-space: nowrap;
+    }
+
+    .landing-footer {
+      position: absolute;
+      bottom: 24px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .delay-4 { animation-delay: 0.4s; opacity: 0; }
+  </style>
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <div class="splash-logo">
+      <img src="assets/logo-pantera.png" alt="Logo">
+    </div>
+    <div class="splash-title">Game Studio</div>
+    <div class="splash-subtitle">SUITE DE JUEGOS INTERACTIVOS</div>
+    <div class="splash-loader">
+      <div class="splash-loader-bar"></div>
+    </div>
+    <div class="splash-status" id="splash-status">
+      <div class="splash-spinner"></div>
+      <span id="splash-status-text">Iniciando...</span>
+    </div>
+  </div>
+
+  <!-- Title Bar -->
+  <div class="titlebar">
+    <span class="titlebar-title">Game Studio</span>
+    <button class="btn-settings" id="btn-settings" title="Ajustes Globales"></button>
+    <div class="titlebar-controls">
+      <button class="titlebar-btn minimize" id="btn-minimize" title="Minimizar"></button>
+      <button class="titlebar-btn maximize" id="btn-maximize" title="Maximizar"></button>
+      <button class="titlebar-btn close" id="btn-close" title="Cerrar"></button>
+    </div>
+  </div>
+
+  <!-- Page -->
+  <div class="page">
+    <div class="landing">
+      <div class="landing-logo animate-fade-in-up">
+        <img src="assets/logo-pantera.png" alt="Logo Pantera" style="width: 140px; height: 140px; object-fit: contain;">
+      </div>
+      <div class="landing-badge animate-fade-in-up delay-1">Suite de Juegos Interactivos</div>
+      <h1 class="landing-title animate-fade-in-up delay-2">Game Studio</h1>
+      <p class="landing-subtitle animate-fade-in-up delay-3">
+        Plataforma múltiple de juegos para concursos en vivo
+      </p>
+
+      <div class="landing-actions">
+        <div class="landing-card quiz-card animate-fade-in-up delay-2" id="card-quiz">
+          <i data-lucide="trophy" class="landing-card-icon"></i>
+          <div class="landing-card-title">Liga Quiz</div>
+          <div class="landing-card-desc">Competencia de opciones múltiples en vivo</div>
+          <div class="landing-card-arrow">Jugar →</div>
+        </div>
+
+        <div class="landing-card disabled-card animate-fade-in-up delay-3">
+          <i data-lucide="type" class="landing-card-icon"></i>
+          <div class="landing-card-title">Deletreo Dinámico</div>
+          <div class="landing-card-desc">Competencia de palabras y ortografía por niveles</div>
+          <div class="badge-soon"><i data-lucide="lock" style="width:10px;height:10px;"></i> PRÓXIMAMENTE</div>
+        </div>
+
+        <div class="landing-card disabled-card animate-fade-in-up delay-4">
+          <i data-lucide="aperture" class="landing-card-icon"></i>
+          <div class="landing-card-title">Ruleta</div>
+          <div class="landing-card-desc">Sorteos dinámicos y juegos de azar visuales</div>
+          <div class="badge-soon"><i data-lucide="lock" style="width:10px;height:10px;"></i> PRÓXIMAMENTE</div>
+        </div>
+
+        <div class="landing-card disabled-card animate-fade-in-up delay-4">
+          <i data-lucide="puzzle" class="landing-card-icon"></i>
+          <div class="landing-card-title">Memorama</div>
+          <div class="landing-card-desc">Concurso de memoria por equipos al instante</div>
+          <div class="badge-soon"><i data-lucide="lock" style="width:10px;height:10px;"></i> PRÓXIMAMENTE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="landing-footer">Game Studio v1.0 — Datos guardados localmente</div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/lucide.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/index.js"></script>
+  <script>
+    if (window.lucide) {
+      window.lucide.createIcons({ icons: window.lucide.icons });
+    }
+  </script>
+</body>
+</html>

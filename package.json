@@ -1,0 +1,45 @@
+{
+  "name": "games-studio",
+  "version": "1.0.0",
+  "description": "Suite de Juegos Interactivos - Games Studio",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder --win portable"
+  },
+  "build": {
+    "appId": "com.gamesstudio.app",
+    "productName": "Games Studio",
+    "publish": {
+      "provider": "github",
+      "owner": "TU_USUARIO_GITHUB",
+      "repo": "TU_REPO"
+    },
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "artifactName": "Games-Studio-Portable.exe"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "keywords": [
+    "quiz",
+    "electron",
+    "games-studio"
+  ],
+  "author": "Games Studio",
+  "license": "MIT",
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "electron-updater": "^6.8.3",
+    "lucide": "^1.8.0"
+  },
+  "devDependencies": {
+    "electron": "^29.0.0",
+    "electron-builder": "^26.8.1"
+  }
+}

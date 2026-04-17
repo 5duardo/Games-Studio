@@ -1,0 +1,631 @@
+{
+  "teams": [
+    {
+      "id": "mo0v8uw6w7bbumteal",
+      "name": "AZUL",
+      "color": "#3b82f6",
+      "icon": "💎",
+      "questions": []
+    },
+    {
+      "id": "mo0v8y7paaco0ehukvk",
+      "name": "ROJO",
+      "color": "#ef4444",
+      "icon": "🏆",
+      "questions": []
+    },
+    {
+      "id": "mo0vcfpyh07rdjx4tbi",
+      "name": "Español",
+      "color": "#f43f5e",
+      "icon": "📚",
+      "questions": [
+        {
+          "id": "mo0vcfpyl1g3bhlfqp",
+          "text": "¿Qué tipo de palabra es 'canción' según su sílaba tónica?",
+          "options": [
+            "Aguda",
+            "Grave",
+            "Esdrújula",
+            "Sobresdrújula"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy08u7wlzmi4qe",
+          "text": "¿En qué sílaba llevan la tilde las palabras esdrújulas?",
+          "options": [
+            "En la última",
+            "En la penúltima",
+            "En la antepenúltima",
+            "No llevan tilde"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyi1atim070z",
+          "text": "Identifica la figura literaria en: 'Sus ojos son dos luceros'.",
+          "options": [
+            "Símil",
+            "Hipérbole",
+            "Metáfora",
+            "Personificación"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyp9yx6248jne",
+          "text": "¿Quién es el autor de 'Cien años de soledad'?",
+          "options": [
+            "Julio Cortázar",
+            "Gabriel García Márquez",
+            "Mario Vargas Llosa",
+            "Jorge Luis Borges"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyly2tf0ru96",
+          "text": "Selecciona el sinónimo de 'efímero'.",
+          "options": [
+            "Duradero",
+            "Pasajero",
+            "Eterno",
+            "Largo"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyfcomq53kpx",
+          "text": "Elige el antónimo de 'opaco'.",
+          "options": [
+            "Oscuro",
+            "Opalescente",
+            "Transparente",
+            "Sólido"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyo9rka4giroo",
+          "text": "¿Cuál de estas palabras es un sustantivo abstracto?",
+          "options": [
+            "Mesa",
+            "Amor",
+            "Perro",
+            "Río"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyggbvkecnzc8",
+          "text": "En la oración 'El perro rojo corre', ¿cuál es el adjetivo?",
+          "options": [
+            "El",
+            "perro",
+            "rojo",
+            "corre"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy1ts1pueh7a8",
+          "text": "¿Qué es un diptongo?",
+          "options": [
+            "Unión de dos vocales fuertes",
+            "Unión de una vocal fuerte y una débil",
+            "Separación de sílabas",
+            "Tres vocales unidas"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyvnims8xfoni",
+          "text": "¿Cuál de estas palabras tiene hiato?",
+          "options": [
+            "Ciudad",
+            "Cueva",
+            "Peón",
+            "Ruido"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyv8qqpits08",
+          "text": "¿Cuál de estas oraciones está en voz pasiva?",
+          "options": [
+            "El niño come manzanas.",
+            "Las manzanas son comidas por el niño.",
+            "Nosotros comemos.",
+            "Las manzanas rojas caen."
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy1y23n9bq2hj",
+          "text": "¿Qué signo de puntuación se usa para separar elementos de una enumeración?",
+          "options": [
+            "Punto",
+            "Coma",
+            "Punto y coma",
+            "Dos puntos"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpys4olhmne96",
+          "text": "Palabra escrita correctamente:",
+          "options": [
+            "AtraveZar",
+            "Atravesar",
+            "Hatrastes",
+            "Atrabesar"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyl6nsguucdwm",
+          "text": "¿Cuál es el núcleo del predicado en una oración?",
+          "options": [
+            "El sustantivo",
+            "El adjetivo",
+            "El verbo",
+            "El artículo"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyptjvj988lu",
+          "text": "Señala la preposición en la frase: 'Viajaremos por tren a Madrid'.",
+          "options": [
+            "Viajaremos",
+            "Por, a",
+            "Tren, Madrid",
+            "No hay preposición"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpynno37ry4sbq",
+          "text": "¿Cuál es el gentilicio de la persona nacida en Buenos Aires?",
+          "options": [
+            "Bonaerense o porteño",
+            "Buenosairense",
+            "Argentino",
+            "Gaucho"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy5y27xx26mj",
+          "text": "¿Qué modo verbal expresa deseo o duda?",
+          "options": [
+            "Indicativo",
+            "Subjuntivo",
+            "Imperativo",
+            "Infinitivo"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyc2ntq4wxkkl",
+          "text": "¿Cuál palabra está escrita con prefijo?",
+          "options": [
+            "Caminante",
+            "Panadería",
+            "Deshacer",
+            "Pecera"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyusnqhkiyheo",
+          "text": "Parte de la oración que sirve para unir palabras o frases (y, e, ni, o, pero):",
+          "options": [
+            "Preposición",
+            "Adverbio",
+            "Conjunción",
+            "Sustantivo"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpygknwk1lzozb",
+          "text": "¿Qué tipo de texto es una receta de cocina?",
+          "options": [
+            "Narrativo",
+            "Instructivo",
+            "Descriptivo",
+            "Argumentativo"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy464drykvq49",
+          "text": "Identifica el pronombre personal en: 'Nosotros iremos al cine mañana'.",
+          "options": [
+            "Iremos",
+            "Cine",
+            "Mañana",
+            "Nosotros"
+          ],
+          "correct": 3,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyhsv6e1fs3xh",
+          "text": "Ejemplo de palabra homófona:",
+          "options": [
+            "Vaca / Baca",
+            "Perro / Gato",
+            "Blanco / Negro",
+            "Caminar / Andar"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyia6huundgns",
+          "text": "¿Qué es una fábula?",
+          "options": [
+            "Un poema épico",
+            "Un cuento largo de ciencia ficción",
+            "Un relato breve que deja una moraleja",
+            "Una obra de teatro trágica"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpymgfyloam98m",
+          "text": "Elemento de la comunicación que recibe el mensaje:",
+          "options": [
+            "Emisor",
+            "Canal",
+            "Contexto",
+            "Receptor"
+          ],
+          "correct": 3,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy1koqh8f8o85i",
+          "text": "Enunciado que afirma o niega algo:",
+          "options": [
+            "Oración exclamativa",
+            "Oración interrogativa",
+            "Oración enunciativa",
+            "Oración imperativa"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy90rywgpvd1",
+          "text": "¿A qué género pertenece la poesía?",
+          "options": [
+            "Narrativo",
+            "Lírico",
+            "Dramático",
+            "Didáctico"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpye04oqe1wgzq",
+          "text": "Forma no personal del verbo terminada en -ando, -iendo:",
+          "options": [
+            "Infinitivo",
+            "Participio",
+            "Gerundio",
+            "Condicional"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpybiutp2k6rzm",
+          "text": "¿Qué figura retórica se encuentra en 'El reloj cantó la hora'?",
+          "options": [
+            "Metáfora",
+            "Personificación",
+            "Epíteto",
+            "Aliteración"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyemphrwagq8c",
+          "text": "El uso de la b y la v: ¿cuál es correcta?",
+          "options": [
+            "Bíbora",
+            "Vívora",
+            "Víbora",
+            "Bívora"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy6t0a54k6s44",
+          "text": "¿En qué siglo vivió Miguel de Cervantes Saavedra?",
+          "options": [
+            "Siglo XV y XVI",
+            "Siglo XVI y XVII",
+            "Siglo XVII y XVIII",
+            "Siglo XIX"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyuvgxdc9sdhn",
+          "text": "¿Qué regla de acentuación siguen las palabras sobreesdrújulas?",
+          "options": [
+            "Llevan tilde si terminan en n, s o vocal",
+            "No llevan tilde",
+            "Siempre llevan tilde",
+            "Solo a veces"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpypzxny4etsaa",
+          "text": "¿Cuál de estos es un sustantivo colectivo?",
+          "options": [
+            "Árbol",
+            "Lobo",
+            "Manada",
+            "Abeja"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpytis4mxqogxc",
+          "text": "¿Qué significa el refrán 'A caballo regalado no se le mira los dientes'?",
+          "options": [
+            "Hay que ser dentista",
+            "Es mejor regalar caballos",
+            "Acepta los regalos sin buscar defectos",
+            "Cuidado con los caballos enfermos"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyp25u3525hw",
+          "text": "¿Cuál palabra lleva h intercalada?",
+          "options": [
+            "Búho",
+            "Hielo",
+            "Huérfano",
+            "Hambre"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyflf4gcgeo1",
+          "text": "¿Cuál de estos verbos está en tiempo pretérito perfecto simple (pasado)?",
+          "options": [
+            "Cantaba",
+            "Cantaré",
+            "Cantó",
+            "Cantaría"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpydeeu23i01a4",
+          "text": "¿Qué es el sujeto tácito?",
+          "options": [
+            "El que no realiza la acción",
+            "El que se menciona en la oración",
+            "El que se sobreentiende sin escribirse",
+            "Un sujeto invertido"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyi8t3m2ebbac",
+          "text": "Antónimo de 'cobarde':",
+          "options": [
+            "Miedoso",
+            "Valiente",
+            "Triste",
+            "Lento"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpybnyzslmy5bn",
+          "text": "¿Cuál de los siguientes es un adverbio de lugar?",
+          "options": [
+            "Allí",
+            "Mañana",
+            "Mucho",
+            "Rápidamente"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyuezj6k60gu",
+          "text": "¿Cómo se llama el idioma español también?",
+          "options": [
+            "Latín",
+            "Castellano",
+            "Galaico",
+            "Íbero"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyi8epp73v1qp",
+          "text": "¿Qué tipo de rima coinciden vocales y consonantes a partir de la última sílaba tónica?",
+          "options": [
+            "Asonante",
+            "Consonante",
+            "Libre",
+            "Blanca"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyod0cqoyduho",
+          "text": "¿Quién escribió la obra teatral 'Bodas de sangre'?",
+          "options": [
+            "Lope de Vega",
+            "Tirso de Molina",
+            "Federico García Lorca",
+            "Pedro Calderón de la Barca"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy7zs1vcpqbgi",
+          "text": "Elige la palabra correctamente escrita con ll o y:",
+          "options": [
+            "Lluvia",
+            "Yuvia",
+            "Llubia",
+            "Yubia"
+          ],
+          "correct": 0,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyng2u1xzpun",
+          "text": "Oración bimembre es aquella que:",
+          "options": [
+            "No tiene verbo",
+            "Se divide en sujeto y predicado",
+            "Es solo una exclamación",
+            "Tiene un solo miembro"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy4wnp696tv6w",
+          "text": "¿Cuál de las siguientes es una obra épica medieval castellana?",
+          "options": [
+            "La Ilíada",
+            "Cantar de mio Cid",
+            "La Araucana",
+            "El Quijote"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpygu13fxf8uk",
+          "text": "Sinónimo de 'pedagogía':",
+          "options": [
+            "Medicina",
+            "Enseñanza",
+            "Filosofía",
+            "Arquitectura"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyo5g73k1vprr",
+          "text": "¿Qué pronombre es de segunda persona plural formal en España?",
+          "options": [
+            "Ellos",
+            "Vosotros / Ustedes",
+            "Nosotros",
+            "Tú"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyz28vagjwkp",
+          "text": "¿Cuál es el plural de 'cruz'?",
+          "options": [
+            "Cruzes",
+            "Cruces",
+            "Crunches",
+            "Cruzs"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy22z2nwkbboy",
+          "text": "Palabra aguda sin tilde:",
+          "options": [
+            "Café",
+            "Pared",
+            "León",
+            "Salón"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpyc4hljyje989",
+          "text": "¿Qué movimiento literario fundó el poeta nicaragüense Rubén Darío?",
+          "options": [
+            "Romanticismo",
+            "Realismo",
+            "Modernismo",
+            "Vanguardismo"
+          ],
+          "correct": 2,
+          "timeLimit": 30
+        },
+        {
+          "id": "mo0vcfpy3gx8gcg40he",
+          "text": "Parte del libro donde se enumeran los capítulos y su página:",
+          "options": [
+            "Prólogo",
+            "Índice",
+            "Epílogo",
+            "Glosario"
+          ],
+          "correct": 1,
+          "timeLimit": 30
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "timerEnabled": true,
+    "defaultTimeLimit": 30,
+    "showCorrectAnswer": true
+  }
+}
