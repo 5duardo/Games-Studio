@@ -74,12 +74,26 @@ function loadData() {
       // Inject default Azul and Rojo only once
       if (!data.settings.hasDefaultTeams) {
         if (data.teams.length === 0) {
-          data.teams.push({ id: generateId(), name: 'Equipo Azul', color: '#3b82f6', icon: '🔵' });
-          data.teams.push({ id: generateId(), name: 'Equipo Rojo', color: '#ef4444', icon: '🔴' });
+          data.teams.push({ id: generateId(), name: 'Equipo Azul', color: '#3b82f6', icon: 'shield' });
+          data.teams.push({ id: generateId(), name: 'Equipo Rojo', color: '#ef4444', icon: 'rocket' });
         }
         data.settings.hasDefaultTeams = true;
         saveData(data);
       }
+      
+      // MIGRATION: Update old emoji icons to new icon names
+      let needsSave = false;
+      data.teams.forEach(team => {
+        if (team.icon === '🔵' || team.icon === 'circle') {
+          team.icon = 'shield';
+          needsSave = true;
+        }
+        if (team.icon === '🔴') {
+          team.icon = 'rocket';
+          needsSave = true;
+        }
+      });
+      if (needsSave) saveData(data);
       
       return data;
     }
@@ -90,8 +104,8 @@ function loadData() {
   // Si no hay archivo, creamos default data
   const defData = getDefaultData();
   defData.teams = [
-    { id: generateId(), name: 'Equipo Azul', color: '#3b82f6', icon: '🔵' },
-    { id: generateId(), name: 'Equipo Rojo', color: '#ef4444', icon: '🔴' }
+    { id: generateId(), name: 'Equipo Azul', color: '#3b82f6', icon: 'shield' },
+    { id: generateId(), name: 'Equipo Rojo', color: '#ef4444', icon: 'rocket' }
   ];
   defData.settings.hasDefaultTeams = true;
 
@@ -165,8 +179,11 @@ app.whenReady().then(() => {
     autoUpdater.on('checking-for-update', () => {
       if (mainWindow) mainWindow.webContents.send('updater-status', 'checking');
     });
-    autoUpdater.on('update-available', () => {
-      if (mainWindow) mainWindow.webContents.send('updater-status', 'available');
+    autoUpdater.on('update-available', (info) => {
+      if (mainWindow) {
+        mainWindow.webContents.send('updater-status', 'available');
+        mainWindow.webContents.send('updater-version', info.version);
+      }
     });
     autoUpdater.on('update-not-available', () => {
       if (mainWindow) mainWindow.webContents.send('updater-status', 'not-available');
@@ -190,6 +207,7 @@ app.on('window-all-closed', () => {
 });
 
 // ─── IPC Handlers ────────────────────────────────────────────────────────────
+ipcMain.handle('get-app-version', () => app.getVersion());
 ipcMain.on('window-minimize', () => mainWindow.minimize());
 ipcMain.on('window-maximize', () => {
   if (mainWindow.isMaximized()) mainWindow.unmaximize();

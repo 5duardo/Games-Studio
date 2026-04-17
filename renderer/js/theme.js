@@ -21,6 +21,7 @@ if (!window.getLucideIcon) {
       '📚':'book-open','📐':'ruler','🔬':'microscope','🌍':'globe','🎨':'palette',
       '🎵':'music-2','🧠':'brain','💼':'briefcase','💻':'laptop','🎬':'clapperboard',
       '🧩':'puzzle','📜':'scroll','🍔':'pizza','🗣':'message-circle','🚗':'car','✈️':'plane',
+      '🔵':'circle','🔴':'circle',
     };
     return map[str] || str || 'help-circle';
   };

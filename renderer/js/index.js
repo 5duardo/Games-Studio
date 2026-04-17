@@ -14,17 +14,52 @@
 
   sessionStorage.setItem('splash-shown', '1');
 
+  // Mostrar versión actual
+  const verText = document.getElementById('splash-ver-text');
+  const updateHint = document.getElementById('splash-update-hint');
+  const spinner = document.getElementById('splash-spinner');
+
+  let currentVersion = '';
+
+  if (window.api && window.api.getAppVersion) {
+    window.api.getAppVersion().then(v => {
+      currentVersion = v;
+      if (verText) verText.textContent = `v${v} — versión actual`;
+    });
+  }
+
+  if (window.api && window.api.onUpdaterVersion) {
+    window.api.onUpdaterVersion((newVer) => {
+      if (verText) verText.textContent = `v${currentVersion} → v${newVer} disponible`;
+      if (updateHint) {
+        updateHint.style.display = 'block';
+        updateHint.textContent = 'Descargando... se instalará al reiniciar';
+      }
+    });
+  }
+
   const statusMessages = {
     'checking':      'Buscando actualizaciones...',
-    'available':     'Actualización disponible',
+    'available':     '¡Nueva versión encontrada!',
     'not-available': 'Todo al día ✓',
-    'error':         'Sin conexión'
+    'error':         'Sin conexión — no se pudo verificar'
   };
 
   if (window.api && window.api.onUpdaterStatus) {
     window.api.onUpdaterStatus((status) => {
       if (statusText && statusMessages[status]) {
         statusText.textContent = statusMessages[status];
+      }
+      if (status === 'not-available') {
+        if (spinner) spinner.style.display = 'none';
+        if (verText && currentVersion) verText.textContent = `v${currentVersion} — última versión ✓`;
+      }
+      if (status === 'error') {
+        if (spinner) spinner.style.display = 'none';
+        if (updateHint) {
+          updateHint.style.display = 'block';
+          updateHint.textContent = '↗ Descargar manualmente: github.com/5duardo/Games-Studio/releases';
+        }
       }
     });
   }

@@ -93,7 +93,7 @@ function updateLeaderboard() {
     el.innerHTML = `
       <div class="lb-rank">${rank}</div>
       <div class="lb-info">
-        <div class="lb-name">${escapeHtml(t.name)}</div>
+        <div class="lb-name"><i data-lucide="${window.getLucideIcon(t.icon)}" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"></i>${escapeHtml(t.name)}</div>
       </div>
       <div class="lb-score" style="color:${t.color}">${t.score}</div>
     `;

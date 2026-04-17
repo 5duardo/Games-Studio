@@ -27,5 +27,7 @@ contextBridge.exposeInMainWorld('api', {
   exportData: () => ipcRenderer.invoke('export-data'),
   importData: () => ipcRenderer.invoke('import-data'),
 
-  onUpdaterStatus: (callback) => ipcRenderer.on('updater-status', (_event, status) => callback(status))
+  onUpdaterStatus: (callback) => ipcRenderer.on('updater-status', (_event, status) => callback(status)),
+  onUpdaterVersion: (callback) => ipcRenderer.on('updater-version', (_event, version) => callback(version)),
+  getAppVersion: () => ipcRenderer.invoke('get-app-version')
 });

@@ -302,8 +302,21 @@
       <div class="splash-loader-bar"></div>
     </div>
     <div class="splash-status" id="splash-status">
-      <div class="splash-spinner"></div>
+      <div class="splash-spinner" id="splash-spinner"></div>
       <span id="splash-status-text">Iniciando...</span>
+    </div>
+    <div id="splash-version" style="
+      position: absolute;
+      bottom: 28px;
+      font-size: 11px;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    ">
+      <span id="splash-ver-text">v—</span>
+      <span id="splash-update-hint" style="display:none; color:#1e3a5f; font-size:10px;"></span>
     </div>
   </div>
 
