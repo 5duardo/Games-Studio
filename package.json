@@ -13,8 +13,8 @@
     "productName": "Games Studio",
     "publish": {
       "provider": "github",
-      "owner": "TU_USUARIO_GITHUB",
-      "repo": "TU_REPO"
+      "owner": "5duardo",
+      "repo": "Games-Studio"
     },
     "win": {
       "target": "portable"
